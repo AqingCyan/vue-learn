@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>组件使用细节</title>
+	<script src="../public/vue.js"></script>
+</head>
+
+<body>
+	<div id="app">
+		<!-- 使用is属性解决模板标签上不规范的bug -->
+		<table>
+			<tbody>
+				<tr is="Row"></tr>
+				<tr is="Row"></tr>
+				<tr is="Row"></tr>
+			</tbody>
+		</table>
+	</div>
+	<script>
+		// 这里定义了一个组件，在页面中使用发现table在row组件的下面，并没有包裹row组件。因为在H5的规定中，table中只能放td和tr
+		// 这个时候就要用is属性了，用is属性说，这里用的是tr，但tr实际是Row组件。
+		Vue.component('Row', {
+			// 组件中的data必须是个函数并返回组件的数据
+			data() {
+				return {
+					content: 'This is row'
+				}
+			},
+			template: `<tr><td>{{content}}</td></tr>`
+		})
+		let vm = new Vue({
+			el: '#app'
+		})
+	</script>
+</body>
+
+</html>

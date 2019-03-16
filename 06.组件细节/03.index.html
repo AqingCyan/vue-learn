@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>组件上的ref</title>
+	<script src="../public/vue.js"></script>
+</head>
+
+<body>
+	<!-- 使用组件实现计数器 -->
+	<div id="app">
+		<Counter @change="handleChange" ref="conuterOne"></Counter>
+		<Counter @change="handleChange" ref="conuterTow"></Counter>
+		<div>
+			<!-- 实现两个计数器的总数 -->
+			和：{{total}}
+		</div>
+	</div>
+	<script>
+		// 用ref获取组件的DOM。实际上获取的是组件的引用
+		Vue.component('Counter', {
+			template: '<div @click="handleClick">{{number}}</div>',
+			data() {
+				return {
+					number: 0
+				}
+			},
+			methods: {
+				handleClick() {
+					this.number++;
+					this.$emit('change');
+				}
+			}
+		})
+		let vm = new Vue({
+			el: '#app',
+			data: {
+				total: 0
+			},
+			methods: {
+				handleChange() {
+					// console.log(this.$refs.conuterOne); // 打印都是子组件的引用
+					// console.log(this.$refs.conuterTow);
+					console.log(this.$refs.conuterOne.number);
+					console.log(this.$refs.conuterTow.number);
+					this.total = this.$refs.conuterOne.number + this.$refs.conuterTow.number;
+				}
+			}
+		})
+	</script>
+</body>
+
+</html>

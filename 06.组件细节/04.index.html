@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>父子间数据传递</title>
+	<script src="../public/vue.js"></script>
+</head>
+
+<body>
+	<!-- 使用组件实现计数器 -->
+	<div id="app">
+		<!-- 父组件通过属性的方式传递数据 -->
+		<!-- 子组件广播一个时间，父组件通过监听这个广播的事件来知道子组件变了 -->
+		<counter :count="3" @change="handleChange"></counter>
+		<counter :count="2" @change="handleChange"></counter>
+		<div>{{total}}</div>
+	</div>
+	<script>
+		let counter = {
+			// 子组件通过props接收
+			props:[
+				'count'
+			],
+			data() {
+				// 子组件不可以直接修改父组件传递来的数据，会造成数据不安全
+				// 我们这边拷贝一份数据，就不会直接修改父组件辽
+				return {
+					number: this.count
+				}
+			},
+			template: '<div @click="handleClick">{{number}}</div>',
+			methods: {
+				handleClick() {
+					this.number++;
+					this.$emit('change', 1); // 广播告诉父组件我变了，变得参数是1
+				}
+			}
+		}
+		let vm = new Vue({
+			el: '#app',
+			data: {
+				total: 5
+			},
+			components: {
+				counter
+			},
+			methods: {
+				// 这里的step就是子组件广播事件的时候传的值
+				handleChange(step) {
+					this.total += step;
+				}
+			}
+		})
+	</script>
+</body>
+
+</html>

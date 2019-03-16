@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>ref的使用</title>
+	<script src="../public/vue.js"></script>
+</head>
+
+<body>
+	<div id="app">
+		<!-- 虽然vue不推荐直接操作DOM，但在一些情况下(制作复杂动画)必须得操作DOM，使用ref -->
+		<!-- 希望div被点击的时候打印div的内容 -->
+		<div @click="handleClick" ref="hello">hello world</div>
+	</div>
+	<script>
+		let vm = new Vue({
+			el: '#app',
+			methods: {
+				handleClick() {
+					console.log(this.$refs.hello); // 打印了<div>hello world</div>
+					alert(this.$refs.hello.innerHTML);
+				}
+			},
+		})
+	</script>
+</body>
+
+</html>
