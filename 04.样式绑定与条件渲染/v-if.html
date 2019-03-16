@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Vue的条件渲染</title>
+	<script src="../public/vue.js"></script>
+</head>
+
+<body>
+	<div id="app">
+		<!-- v-if不展示就会不渲染 -->
+		<div v-if="show">{{message}}</div>
+		<div v-else>{{anotherMessage}}</div>
+		<!-- v-show不展示也会渲染，但是display为none而已 -->
+		<div v-show="show">{{message}}</div>
+		<button @click="handleBtnClick">显与隐</button>
+
+		<!-- v-if与v-else还能这么玩，在控制台里修改vm.ifandelse=b看效果 -->
+		<div v-if="ifandelse === 'a'">This is A</div>
+		<div v-else-if="ifandelse === 'b'">This is B</div>
+		<div v-else>This is Nothing</div>
+	</div>
+	<script>
+		let vm = new Vue({
+			el: '#app',
+			data: {
+				show: false, 
+				message: 'Hello World', 
+				anotherMessage: '它出现我就藏起来',
+				ifandelse: 'a'
+			},
+			methods: {
+				handleBtnClick() {
+					this.show = !this.show;
+				}
+			}
+		})
+	</script>
+</body>
+
+</html>
