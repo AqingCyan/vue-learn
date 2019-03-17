@@ -2,63 +2,63 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Vue中的样式绑定</title>
-	<script src="../public/vue.js"></script>
-	<style>
-		.activated {
-			color: red;
-		}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue中的样式绑定</title>
+  <script src="../public/vue.js"></script>
+  <style>
+    .activated {
+      color: red;
+    }
 
-		.activated-one {
-			font-size: 20px;
-		}
-	</style>
+    .activated-one {
+      font-size: 20px;
+    }
+  </style>
 </head>
 
 <body>
-	<!-- 实现点击div变色 -->
-	<div id="app">
-		<!-- 方法1：对象绑定 -->
-		<div @click="handleDivClick1" :class="{activated: isActivated}">
-			Hello World1
-		</div>
-		<!-- 方法2：数组绑定 -->
-		<div @click="handleDivClick2" :class="[anotherActivated, activatedOne]">
-			Hello World2
-		</div>
-		<!-- 方法3：属性绑定 -->
-		<div @click="handleDivClick3" :style="[styleObj, {fontSize:'20px'}]">
-			Hello World3
-		</div>
-	</div>
-	<script>
-		let vm = new Vue({
-			el: '#app',
-			data: {
-				isActivated: false,
-				anotherActivated: '',
-				activatedOne: '',
-				styleObj: {
-					color: 'black'
-				}
-			},
-			methods: {
-				handleDivClick1() {
-					this.isActivated = !this.isActivated;
-				},
-				handleDivClick2() {
-					this.anotherActivated = this.anotherActivated === 'activated' ? '' : 'activated';
-					this.activatedOne = this.activatedOne === 'activated-one' ? '' : 'activated-one';
-				},
-				handleDivClick3() {
-					this.styleObj.color = this.styleObj.color === 'black' ? 'red' : 'black';
-				}
-			},
-		})
-	</script>
+<!-- 实现点击div变色 -->
+<div id="app">
+  <!-- 方法1：对象绑定 -->
+  <div @click="handleDivClick1" :class="{activated: isActivated}">
+    Hello World1
+  </div>
+  <!-- 方法2：数组绑定 -->
+  <div @click="handleDivClick2" :class="[anotherActivated, activatedOne]">
+    Hello World2
+  </div>
+  <!-- 方法3：属性绑定 -->
+  <div @click="handleDivClick3" :style="[styleObj, {fontSize:'20px'}]">
+    Hello World3
+  </div>
+</div>
+<script>
+  let vm = new Vue({
+    el: '#app',
+    data: {
+      isActivated: false,
+      anotherActivated: '',
+      activatedOne: '',
+      styleObj: {
+        color: 'black'
+      }
+    },
+    methods: {
+      handleDivClick1() {
+        this.isActivated = !this.isActivated;
+      },
+      handleDivClick2() {
+        this.anotherActivated = this.anotherActivated === 'activated' ? '' : 'activated';
+        this.activatedOne = this.activatedOne === 'activated-one' ? '' : 'activated-one';
+      },
+      handleDivClick3() {
+        this.styleObj.color = this.styleObj.color === 'black' ? 'red' : 'black';
+      }
+    },
+  })
+</script>
 </body>
 
 </html>

@@ -2,41 +2,41 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>列表渲染</title>
-	<script src="../public/vue.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>列表渲染</title>
+  <script src="../public/vue.js"></script>
 </head>
 
 <body>
-	<div id="app">
-		<!-- 真实项目中，尽量避免key值用index，一般后端传来的数值都会有专属的id，用它做key值 -->
-		<div v-for="(item, index) of list" :key="index">
-			<li>{{index}} -- {{item}}</li>
-		</div>
-	</div>
-	<script>
-		// 现在页面有5个数据，我们在控制台vm.list[5] = '123'，添加一条数据，发现vm.list虽然多了一条数据，但页面没有响应式的变化
-		// Vue中对数组的操作有限定的api，使用它们才能让页面有响应式的变化：pop、push、shift、unshift、splice、sort、reverse
-		// 当然，除了以上的方式，我们还可以通过直接修改数组引用的方式来促使页面重新渲染，
-		// 该方法也适用于对象，若直接通过键值对的方式增加减少修改对象，虽然对象的数据变化，页面也不会有响应式的变化，所以通过修改引用，让绑定在页面的对象指向新的对象就能使页面重新渲染
-		// 而针对以上情况，还有set方法可以使用
-		// Vue.set全局方法 vm.$set实例方法都可以
-		// 比如在控制台输入 Vue.set(vm.list, 1, 'node.js') 或者 vm.$set(vm.list, 1, 'node.js')看看第二个元素的变化
-		let vm = new Vue({
-			el: '#app',
-			data: {
-				list: [ 
-					'hello',
-					'world',
-					'and',
-					'aqing',
-					'cyan'
-				]
-			}
-		})
-	</script>
+<div id="app">
+  <!-- 真实项目中，尽量避免key值用index，一般后端传来的数值都会有专属的id，用它做key值 -->
+  <div v-for="(item, index) of list" :key="index">
+    <li>{{index}} -- {{item}}</li>
+  </div>
+</div>
+<script>
+  // 现在页面有5个数据，我们在控制台vm.list[5] = '123'，添加一条数据，发现vm.list虽然多了一条数据，但页面没有响应式的变化
+  // Vue中对数组的操作有限定的api，使用它们才能让页面有响应式的变化：pop、push、shift、unshift、splice、sort、reverse
+  // 当然，除了以上的方式，我们还可以通过直接修改数组引用的方式来促使页面重新渲染，
+  // 该方法也适用于对象，若直接通过键值对的方式增加减少修改对象，虽然对象的数据变化，页面也不会有响应式的变化，所以通过修改引用，让绑定在页面的对象指向新的对象就能使页面重新渲染
+  // 而针对以上情况，还有set方法可以使用
+  // Vue.set全局方法 vm.$set实例方法都可以
+  // 比如在控制台输入 Vue.set(vm.list, 1, 'node.js') 或者 vm.$set(vm.list, 1, 'node.js')看看第二个元素的变化
+  let vm = new Vue({
+    el: '#app',
+    data: {
+      list: [
+        'hello',
+        'world',
+        'and',
+        'aqing',
+        'cyan'
+      ]
+    }
+  })
+</script>
 </body>
 
 </html>
