@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue插槽使用</title>
+  <script src="../public/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <!--需求：若想在子组件中插入DOM结构-->
+  <child>
+    <h1 slot="header">Hello</h1>
+    <h1 slot="footer">Cyan</h1>
+  </child>
+  <child>
+  </child>
+</div>
+<script>
+  // 若是用传递属性的方式来插入DOM结构，代码冗余，且会自动转义标签，十分不方便。
+  // slot帮我们解决了问题，可以在组件的使用中直接插入
+  Vue.component('child', {
+    template: `<div>
+                  <slot name="header">默认头部</slot>
+                  <p>你好</p>
+                  <slot name="footer">默认尾部</slot>
+                </div>`
+  });
+  let vm = new Vue({
+    el: '#app'
+  })
+</script>
+</body>
+</html>
