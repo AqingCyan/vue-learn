@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>给组件绑定原生事件</title>
+  <script src="../public/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <child @click.native="handleClick"></child>
+</div>
+
+<script>
+  // 直接在组件上绑定方法，才有效。
+  // 原因：我们在子组件上绑定的方法是原生的方法，可以直接触发，而通过在组件名上绑定方法，在父组件定义方法，去直接触发其实在触发自定义方法
+  // 若要通过子组件去触发父组件的自定义方法，要通过广播的方式来触发，也就是这个例子中，要在子组件里广播一个this.$emit('click')，被父组件监听到才能触发
+  // 当然，若不想通过广播的方式来触发自定义事件，vue也提供了.native的语法来让自定义事件可以被当做原生事件触发。
+  Vue.component('child', {
+    template: '<div @click="handleChildClick">Child</div>',
+    methods: {
+      handleChildClick() {
+        console.log('child click');
+        // this.$emit('click');
+      }
+    }
+  });
+  let vm = new Vue({
+    el: '#app',
+    // 我们发现给组件在这里绑定事件的时候，失效了。
+    methods: {
+      handleClick() {
+        console.log('father click');
+      }
+    }
+  })
+</script>
+</body>
+</html>

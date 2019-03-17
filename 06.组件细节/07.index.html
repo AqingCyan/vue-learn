@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>非父子组件间传值(Bus/总线/发布订阅模式/观察者模式)</title>
+  <script src="../public/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <!--需求：点击一个单词，另一个单词变成同样的单词，这就是一个非父子组件传值问题-->
+  <child :content="'Cyan'"></child>
+  <child :content="'Aqing'"></child>
+</div>
+<script>
+ Vue.prototype.bus = new Vue(); // 在Vue的原型上增加一个bus属性，之后的每一个Vue实例都会有bus属性
+  Vue.component('child', {
+    data() {
+      return {
+        selfContent: this.content // 做一个值的转变，不直接修改父组件的值，遵循单向数据流
+      }
+    },
+    props: {
+      content: String
+    },
+    template: '<div @click="handleClick">{{selfContent}}</div>',
+    methods: {
+      handleClick() {
+        // 通过bus向外广播
+        this.bus.$emit('change', this.selfContent);
+      }
+    },
+    // 借助生命周期函数
+    mounted() {
+      // 监听bus上的广播
+      this.bus.$on('change', (msg) => {
+        this.selfContent = msg;
+      })
+    }
+  });
+  let vm = new Vue({
+    el: '#app'
+  })
+</script>
+</body>
+</html>

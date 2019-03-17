@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>动态组件与v-once</title>
+  <script src="../public/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <!--需求：点击隐藏其中之一-->
+  <child-one v-if="type==='child-one'"></child-one>
+  <child-two v-if="type==='child-two'"></child-two>
+  <!--动态组件解决-->
+  <!--<component :is="type"></component>-->
+  <button @click="handleBtnClick">change</button>
+</div>
+<script>
+  // 切换的时候，都是销毁组件再创建一个新的组件，那么对于一些静态不变的内容，是耗费性能的，通过v-once属性，就会将其保存在内存中，不会销毁。
+  Vue.component('child-one', {
+    template: '<div v-once>child-one</div>'
+  });
+  Vue.component('child-two', {
+    template: '<div v-once>child-two</div>'
+  });
+  let vm = new Vue({
+    el: '#app',
+    data: {
+      type: 'child-one'
+    },
+    methods: {
+      handleBtnClick() {
+        this.type = this.type === 'child-one' ? 'child-two' : 'child-one';
+      }
+    }
+  })
+</script>
+</body>
+</html>

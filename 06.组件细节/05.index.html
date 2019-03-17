@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>组件参数校验与非props特性</title>
+  <script src="../public/vue.js"></script>
+</head>
+
+<body>
+<!-- 使用组件实现计数器 -->
+<div id="app">
+  <!--content传递数字会报警告，而name传递数字或字符串都可以-->
+  <child :content="1" :name="2"></child>
+  <child :content="'ni'" :name="'string'"></child>
+</div>
+<script>
+  Vue.component('child', {
+    // 子组件可以对于父组件传来的值的类型进行校验
+    props: {
+      // content: String, // 可以简写
+      content: {
+        type: String, // 类型是字符串
+        required: true, // 必传
+        default: '这是默认值',
+        // 还可以写一个函数校验器
+        validator: (value) => {
+          return (value.length > 5) // 这里指定传入的字符长度大于5才行
+        }
+      },
+      name: [String, Number]
+    },
+    template: '<div>{{content}}--{{name}}</div>',
+  });
+  let vm = new Vue({
+    el: '#app',
+    data: {}
+  })
+  // props特性：当父组件使用子组件时，通过属性给子组件传值时，恰好子组件props里面声明了这个属性，有一个对应的关系。
+  // 这个时候，浏览器查看组件的DOM元素上不会显示传递的属性，子组件也可以对该属性进行访问使用。
+  // 非props特性：父组件传递子组件一个属性，子组件未在props中声明该属性。这种情况下：
+  // 浏览器查看组件的DOM元素上会显示这个属性，一旦在子组件内使用该属性，Vue就会报错。
+</script>
+</body>
+
+</html>
