@@ -1,4 +1,4 @@
-#Vue
+# Vue
 
 渐进式 JavaScript 框架，基于MVVM模式。这里是AqingCyan的学习指南，在阅读源码和我的学习笔记学习之前，我们得具有基本的JavaScript、HTML、CSS的知识，并且准备好丢弃原来的开发页面的思维。
 
