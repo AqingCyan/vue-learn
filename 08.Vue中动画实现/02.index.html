@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue中的Css动画另一种实现</title>
+  <script src="../public/vue.js"></script>
+  <style>
+    /*动画的另一种实现方式*/
+    @keyframes bounce-in {
+      0% {
+        transform: scale(0);
+      }
+
+      50% {
+        transform: scale(1.5);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .fade-enter-active {
+      transform-origin: left center;
+      animation: bounce-in 1s;
+    }
+
+    .fade-leave-active {
+      transform-origin: left center;
+      animation: bounce-in 1s reverse;
+    }
+  </style>
+</head>
+<body>
+<div id="root">
+  <transition name="fade">
+    <div v-if="show">hello world</div>
+  </transition>
+  <button @click="handleClick">切换</button>
+</div>
+<script>
+  let vm = new Vue({
+    el: '#root',
+    data: {
+      show: true
+    },
+    methods: {
+      handleClick() {
+        this.show = !this.show;
+      }
+    }
+  });
+</script>
+</body>
+</html>

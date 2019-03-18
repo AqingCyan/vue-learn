@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue中多个元素的过渡</title>
+  <script src="../public/vue.js"></script>
+  <style>
+    .fade-enter, .fade-leave-to {
+      opacity: 0;
+    }
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity 1s;
+    }
+  </style>
+</head>
+<body>
+<div id="root">
+  <!--我们发现，transition包裹多个元素，切换没有动画效果。因为在元素切换的时候，复用了dom。我们可以通过赋予key值来避免复用-->
+  <!--我们也发现，多个元素时，动画是同时进行的，vue给我们提供了mode属性，可以指定动画执行的具体顺序：先进入再隐藏还是先隐藏再进入-->
+  <transition name="fade" mode="out-in">
+    <div v-if="show" key="hello">hello world</div>
+    <div v-else="show" key="bye">bye world</div>
+  </transition>
+  <transition name="fade" mode="out-in">
+    <!--我们也可以用用动态组件，不用指定key，因为它算是一个元素标签-->
+    <component :is="type"></component>
+  </transition>
+  <button @click="handleClick">Toggle</button>
+</div>
+<script>
+  Vue.component('child', {
+    template: '<div>child</div>'
+  });
+  Vue.component('child-one', {
+    template: '<div>child-one</div>'
+  });
+  let vm = new Vue({
+    el: '#root',
+    data: {
+      type: 'child',
+      show: true
+    },
+    methods: {
+      handleClick() {
+        this.show = !this.show;
+        this.type = this.type === 'child' ? 'child-one' : 'child'
+      }
+    }
+  });
+</script>
+</body>
+</html>

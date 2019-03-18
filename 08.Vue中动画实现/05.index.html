@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue中使用JS动画</title>
+  <script src="../public/vue.js"></script>
+  <script src="../public/velocity.min.js"></script>
+</head>
+<body>
+<div id="root">
+  <!--@before-enter等是动画钩子函数，可以实现js动画-->
+  <transition
+      name="fade"
+      @before-enter="handleBeforeEnter"
+      @enter="handleEnter"
+      @after-enter="handleAfter"
+  >
+    <div v-if="show">hello world</div>
+  </transition>
+  <button @click="handleClick">切换</button>
+</div>
+<script>
+  let vm = new Vue({
+    el: '#root',
+    data: {
+      show: true
+    },
+    methods: {
+      handleClick() {
+        this.show = !this.show;
+      },
+      handleBeforeEnter(el) { // el是动画包裹的标签
+        el.style.opacity = 0;
+      },
+      handleEnter(el, done) { // done是一个函数，执行后，该动画行为就结束
+        Velocity(el, {opacity: 1}, {duration: 1000, complete: done}) // complete调用了done
+      },
+      handleAfter(el) {
+        alert('动画结束')
+      }
+    }
+  });
+</script>
+</body>
+</html>
