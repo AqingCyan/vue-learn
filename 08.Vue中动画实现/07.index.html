@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue中的列表过渡</title>
+  <script src="../public/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <div v-for="(item, index) of list" :key="index">{{item}}</div>
+  <button @click="handleBtnClick">Add</button>
+</div>
+<script>
+  let vm = new Vue({
+    el: '#app',
+    data: {
+      list:[]
+    },
+    methods: {
+      handleBtnClick() {
+        this.list.push({
+
+        })
+      }
+    }
+  });
+</script>
+</body>
+</html>
