@@ -10,7 +10,7 @@ module.exports = {
     lineNumbers: true // 代码块显示行号
   },
   themeConfig: {
-    repo: 'AqingCyan/react.js-learn',
+    repo: 'AqingCyan/vue.js-learn',
     editLinks: true,
     editLinkText: '在 GitHub 上编辑此页',
     lastUpdated: '上次更新',
