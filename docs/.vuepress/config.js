@@ -20,7 +20,8 @@ module.exports = {
         collapsable: false,
         children: [
           ['VueBook/', '如何学习？'],
-          'VueBook/StartFromTodoList'
+          'VueBook/StartFromTodoList',
+          'VueBook/VuesApiandHisHook'
         ]
       }
     ]
