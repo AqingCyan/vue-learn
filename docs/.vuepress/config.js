@@ -2,7 +2,7 @@ module.exports = {
   title: 'Vue全家桶自学入门指南',
   description: '一个前端学习者的自我修养',
   head: [
-    ['link', { rel: 'icon', href: 'vue.png' }], // 增加一个自定义的 favicon(网页标签的图标)
+    ['link', { rel: 'icon', href: 'favicon.ico' }], // 增加一个自定义的 favicon(网页标签的图标)
   ],
   base: '/vue.js-learn/',
   serviceWorker: false,
@@ -21,7 +21,12 @@ module.exports = {
         children: [
           ['VueBook/', '如何学习？'],
           'VueBook/StartFromTodoList',
-          'VueBook/VuesApiandHisHook'
+          'VueBook/VuesApiandHisHook',
+          'VueBook/StyleAndV-if',
+          'VueBook/ListAndV-for',
+          'VueBook/Components',
+          'VueBook/Slot',
+          'VueBook/VuesArt',
         ]
       }
     ]
