@@ -22,6 +22,7 @@ module.exports = {
           ['VueBook/', '如何学习？'],
           'VueBook/StartFromTodoList',
           'VueBook/VuesApiandHisHook',
+          'VueBook/ComputedAndWatch',
           'VueBook/StyleAndV-if',
           'VueBook/ListAndV-for',
           'VueBook/Components',
