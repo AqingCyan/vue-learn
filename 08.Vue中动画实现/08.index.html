@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue动画封装</title>
+  <script src="../public/vue.js"></script>
+  <style>
+    .fade-enter, .fade-leave-to {
+      opacity: 0;
+    }
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity 1s;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <fade :show='show'>
+		<div>hello world</div>
+	</fade>
+	<fade :show='show'>
+		<p>hello world</p>
+	</fade>
+	<fade :show='show'>
+		<h1>hello world</h1>
+	</fade>
+  <button @click="handleBtnClick">Toggle</button>
+</div>
+<script>
+	// 我们把动画封装在一个组件里面
+  Vue.component('fade', {
+		props: ['show'],
+		template: `<transition name="fade">
+    						<slot v-if="show"></slot>
+  						</transition>`
+  })
+  let vm = new Vue({
+    el: '#app',
+    data: {
+      show: true
+    },
+    methods: {
+      handleBtnClick() {
+        this.show = !this.show;
+      }
+    }
+  });
+</script>
+</body>
+</html>

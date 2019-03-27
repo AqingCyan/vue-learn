@@ -4,13 +4,26 @@
   <meta charset="UTF-8">
   <title>Vue中的列表过渡</title>
   <script src="../public/vue.js"></script>
+  <style>
+    .fade-enter, .fade-leave-to {
+      opacity: 0;
+    }
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity 1s;
+    }
+  </style>
 </head>
 <body>
 <div id="app">
-  <div v-for="(item, index) of list" :key="index">{{item}}</div>
+  <!-- 使用transition-group包裹列表实现列表过渡 -->
+  <!-- 相当于给每个渲染的列表项在渲染时单独包裹了一个transition -->
+  <transition-group name="fade">
+    <div v-for="item of list" :key="item.id">{{item.title}}</div>
+  </transition-group>
   <button @click="handleBtnClick">Add</button>
 </div>
 <script>
+  let count = 0;
   let vm = new Vue({
     el: '#app',
     data: {
@@ -19,7 +32,8 @@
     methods: {
       handleBtnClick() {
         this.list.push({
-
+          id: count++,
+          title: 'hello world'
         })
       }
     }
